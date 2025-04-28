@@ -1,4 +1,5 @@
 from sklearn.cluster import KMeans
+from sklearn.metrics import jaccard_score
 from sklearn.preprocessing import MultiLabelBinarizer
 import numpy as np
 
@@ -27,6 +28,18 @@ def get_common_tags(user, cluster):
     cluster_common_tags = set.intersection(*[set(u["tags"]) for u in cluster])
     return user_tags.intersection(cluster_common_tags)
 
+def age_classification(user):
+    # Classify age into groups
+    if 17 <= user["age"] < 20:
+        return "teen"
+    elif 20 <= user["age"] < 30:
+        return "young_adult"
+    elif 30 <= user["age"] < 50:
+        return "adult"
+    elif 50 <= user["age"] < 65:
+        return "senior"
+    else:
+        "child: participation not allowed"
 
 # Modified is_valid to ensure at least one common tag
 def is_valid(user, cluster):
@@ -34,9 +47,8 @@ def is_valid(user, cluster):
         return True
 
     # Check age constraint
-    age_diffs = [abs(user["age"] - other["age"]) for other in cluster]
-    if any(diff < 10 for diff in age_diffs):  # Constraint 1: too close in age
-        return False
+    age = age_classification(user)
+    jaccard_score()
 
     # Check tag similarity constraints
     for other in cluster:

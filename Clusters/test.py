@@ -50,7 +50,7 @@ def is_valid(user, cluster):
     if not cluster:
         return True
 
-    # Check age constraint
+    # Check age group constraint
     for other_user in cluster:
         if abs(user["age"] - other_user["age"]) < 10:  # Example age constraint
             age_constraint = False
