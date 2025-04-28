@@ -1,9 +1,7 @@
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
-
 from user_embedding import final_df
 
-# Assuming 'final_df' is your dataframe with embeddings in columns
 embeddings_df = final_df.drop(columns=['id', 'age','tags'])  # Get the embeddings columns
 
 # Dimensionality Reduction (PCA) for better clustering
