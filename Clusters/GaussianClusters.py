@@ -11,7 +11,7 @@ pca = PCA(n_components=10)  # Reduce dimensions to 10
 reduced_embeddings = pca.fit_transform(embeddings_df)
 
 # Perform GMM clustering (soft clustering)
-n_clusters = 5  # Set number of clusters you want, adjust as needed
+n_clusters = 5  # figure out way to make it dynamic according to how many users there are
 gmm = GaussianMixture(n_components=n_clusters, random_state=42)
 final_df['cluster'] = gmm.fit_predict(reduced_embeddings)
 
