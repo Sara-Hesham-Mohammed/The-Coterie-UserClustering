@@ -1,8 +1,6 @@
-import os
 import pandas as pd
-import numpy as np
 from sentence_transformers import SentenceTransformer
-#USE DBSCAN FOR CLUSTERING WITH THE GENERATED EMBEDDINGS
+
 # Data of users
 users_json = [
     {"id": 1, "age": 25, "tags": ["sports", "tech", "music", "gaming", "travel"]},
@@ -35,14 +33,11 @@ def create_user_text(row):
 # Apply the embedding function to each user in the DataFrame
 user_df['embedding'] = user_df.apply(lambda row: get_embedding(create_user_text(row)), axis=1)
 
-# Convert embeddings into a list of lists to save properly in a CSV
+# Convert embeddings into a list of lists
 embeddings_list = user_df['embedding'].apply(lambda x: x.tolist()).tolist()  # Convert each embedding to list
 
 # Create a new DataFrame with embeddings as columns
 embeddings_df = pd.DataFrame(embeddings_list)
 
-# Add original user data (id and age) to the embeddings DataFrame
-final_df = pd.concat([user_df[['id', 'age']], embeddings_df], axis=1)
-
-# Save the DataFrame to CSV
-final_df.to_csv("embeddings.csv", index=False)
+# Add original user data to the embeddings DataFrame
+final_df = pd.concat([user_df[['id', 'age','tags']], embeddings_df], axis=1)
