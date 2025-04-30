@@ -26,9 +26,9 @@ def get_embedding(text):
     return embeddings
 
 # Create a combined text representation for each user
-def create_user_text(row):
-    tags = ", ".join(row['tags'])  # Convert list of tags into a string
-    return f"User ID: {row['id']}, Age: {row['age']}, Interests: {tags}"
+def create_user_text(user):
+    tags = ", ".join(user['tags'])  # Convert list of tags into a string
+    return f"User ID: {user['id']}, Age: {user['age']}, Interests: {tags}"
 
 # Apply the embedding function to each user in the DataFrame
 user_df['embedding'] = user_df.apply(lambda row: get_embedding(create_user_text(row)), axis=1)

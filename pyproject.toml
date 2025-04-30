@@ -18,6 +18,8 @@ matplotlib = "^3.10.1"
 sentence-transformers = "^4.1.0"
 hf-xet = "^1.0.5"
 kmodes = "^0.12.2"
+redis = "^5.3.0"
+asyncio = "^3.4.3"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
