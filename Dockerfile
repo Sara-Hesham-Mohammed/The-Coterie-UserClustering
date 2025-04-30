@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.12
 LABEL authors="Sara"
 #ENTRYPOINT ["top", "-b"]
 WORKDIR /app

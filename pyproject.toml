@@ -27,3 +27,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 start = "API.run:main"
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
