@@ -1,6 +1,7 @@
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
 
+
 def dimensionality_reduction(users_embeddings_df):
     # Check if the DataFrame is empty
     if users_embeddings_df.empty:
@@ -8,7 +9,7 @@ def dimensionality_reduction(users_embeddings_df):
 
     # Check if the DataFrame has more than 1 column
     if users_embeddings_df.shape[1] <= 1:
-        raise ValueError("The embeddings DataFrame must have more than one column for dimensionality reduction.")
+        raise ValueError("The embeddings Dataframe must have more than one column for dimensionality reduction.")
 
     # Dimensionality Reduction (PCA) for better clustering
     pca = PCA(n_components=10)  # Reduce dimensions to 10
