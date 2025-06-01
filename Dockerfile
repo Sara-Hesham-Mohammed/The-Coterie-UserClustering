@@ -3,10 +3,19 @@ LABEL authors="Sara"
 #ENTRYPOINT ["top", "-b"]
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock ./
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+
+# Install Poetry
+RUN pip install poetry
+
+# Copy dependency files
+COPY pyproject.toml poetry.lock* ./
+
+# Install dependencies (without virtualenvs, for Docker)
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-dev --no-interaction --no-ansi
+
 
 COPY . .
 
+EXPOSE 5000
 CMD ["python", "run.py"]
