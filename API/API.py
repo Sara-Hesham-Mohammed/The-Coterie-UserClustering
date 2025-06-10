@@ -26,5 +26,5 @@ async def form_groups(users: List[User]):
     for user in users:
         proc_users_dict[user] = preproc(user)
 
-    groups = get_clusters()
+    groups = get_clusters(proc_users_dict)
     return groups
