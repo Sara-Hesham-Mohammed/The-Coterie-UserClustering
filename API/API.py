@@ -1,9 +1,10 @@
 import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from API.User_Model import User
+from Models.User_Model import User
 from typing import List
-from Clusters.GaussianClusters import dimensionality_reduction, get_clusters
+from Clusters.GaussianClusters import get_clusters
+from preprocessing import preproc
 
 app = FastAPI()
 #to be able to send requests using html file?
@@ -21,10 +22,9 @@ async def root():
 
 @app.post("/get-group/")
 async def form_groups(users: List[User]):
-    user_df = pd.DataFrame(users)
-    embeddings_df = user_df['embedding']
-    reduced_df = dimensionality_reduction(embeddings_df)
-    # Perform GMM clustering (soft clustering)
-    # pass the number of clusters as a parameter, default is 5
-    groups = get_clusters(reduced_df)
+    proc_users_dict = {}
+    for user in users:
+        proc_users_dict[user] = preproc(user)
+
+    groups = get_clusters()
     return groups
