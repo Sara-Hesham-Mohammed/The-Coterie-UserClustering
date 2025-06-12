@@ -1,9 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
-class User(BaseModel):
+class UserDTO(BaseModel):
     id: int
-    tags: List[str]
-    country: str
-    languages: List[str]
-    preferred_group_size: Optional[str] = "any"  # can be "small", "medium", "large", or "any"
+    interest_embedding: List[float]
+    location_lang_embedding: List[float]
