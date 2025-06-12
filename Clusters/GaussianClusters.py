@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from collections import defaultdict
 
-
+# test
 def get_clusters(users_data, num_clusters=5):
     """
     Perform Gaussian Mixture Model (GMM) clustering on user embeddings, considering both
