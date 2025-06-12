@@ -1,41 +1,27 @@
-# ---------- Base ----------
-FROM python:3.12-slim as base
+FROM python:3.12-slim
 
-ENV PYTHONUNBUFFERED=1 \
+ENV POETRY_VERSION=1.6.1 \
+    PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    POETRY_VERSION=1.6.1 \
-    POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_CREATE=false \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_HOME="/opt/poetry"
+    PIP_DEFAULT_TIMEOUT=100
 
-ENV PATH="$POETRY_HOME/bin:$PATH"
-
-# ---------- Builder ----------
-FROM base as builder
-
+# Install Poetry
 RUN pip install "poetry==$POETRY_VERSION"
 
+# Set working directory
 WORKDIR /app
 
+# Copy dependency files
 COPY pyproject.toml poetry.lock* ./
 
-RUN poetry install --only main -vvv
+# Install dependencies (no virtualenvs, no root package)
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-root
 
-
-# ---------- Production ----------
-FROM base as production
-
-WORKDIR /app
-
-COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
-
-COPY ./API ./API
-COPY ./Clusters ./Clusters
-COPY ./Models ./Models
+# Copy app source code
+COPY . .
 
 EXPOSE 8000
 
