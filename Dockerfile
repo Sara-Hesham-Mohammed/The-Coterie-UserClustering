@@ -22,7 +22,7 @@ WORKDIR /app
 
 COPY pyproject.toml poetry.lock* ./
 
-RUN poetry install --only main
+RUN poetry install --only main -vvv
 
 
 # ---------- Production ----------
