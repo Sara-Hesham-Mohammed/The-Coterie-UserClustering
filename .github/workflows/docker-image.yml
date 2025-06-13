@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: rec-engine-image
+      IMAGE_NAME: clustering-image
       IMAGE_TAG: ${{ github.run_number }} # or use `IMAGE_TAG: latest` if you want
 
     steps:
