@@ -49,17 +49,14 @@ def get_clusters(users_data, num_clusters=5):
     
     # Get cluster assignments for each user
     cluster_labels = np.argmax(combined_probs, axis=1)
-
-    print(f"Cluster labels: {cluster_labels}, type: {type(cluster_labels)}")
     
     # Create a dictionary to store users by cluster
     clusters_dict = defaultdict(list)
-    
-    # Group users by their cluster
+
     # Group users by their cluster
     for user_idx, cluster_label in enumerate(cluster_labels):
         user_id = users_data[user_idx]['id']
         clusters_dict[int(cluster_label)].append(user_id)
 
-    # Convert defaultdict to regular dict
+    # Convert defaultdict to regular dict (necessary for JSON serialization)
     return dict(clusters_dict)
